@@ -7,6 +7,7 @@ class Tire(str, Enum):
     SLICK = "slick"
     INTERMEDIATE = "intermediate"
     WET = "wet"
+    SOFT = "soft"
 
 
 class Condition(str, Enum):

@@ -25,6 +25,9 @@ GRIP: dict[tuple[Tire, Condition], float] = {
     (Tire.WET, Condition.DRY): 1.10,
     (Tire.WET, Condition.DAMP): 1.05,
     (Tire.WET, Condition.WET): 0.95,
+    (Tire.SOFT, Condition.DRY): 1.75,
+    (Tire.SOFT, Condition.DAMP): 0.90,
+    (Tire.SOFT, Condition.WET): 0.40,
 }
 
 
