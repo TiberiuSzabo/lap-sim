@@ -1,0 +1,59 @@
+.pill-group {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.pill-group__legend {
+  margin-bottom: 12px;
+  padding: 0;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+
+.pill-group__options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pill {
+  position: relative;
+}
+
+/* Hidden visually but still focusable; display: none would remove it from the keyboard. */
+.pill input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.pill span {
+  display: block;
+  padding: 10px 18px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  transition: background-color 150ms, border-color 150ms, color 150ms;
+}
+
+.pill:hover span {
+  border-color: var(--accent);
+}
+
+.pill input:checked + span {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--on-accent);
+  font-weight: 600;
+}
+
+.pill input:focus-visible + span {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 3px;
+}

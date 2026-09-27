@@ -1,0 +1,80 @@
+.configurator {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+  gap: clamp(32px, 5vw, 72px);
+  align-items: start;
+}
+
+.configurator__controls {
+  display: grid;
+  gap: 32px;
+}
+
+/* Skewed like a race-poster label; the inner span skews back so the text stays upright. */
+.configurator__submit {
+  justify-self: start;
+  /* The skew pushes the bottom-left corner ~6px outside the box; keep it inside the gutter. */
+  margin-left: 6px;
+  padding: 14px 40px;
+  border: 0;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transform: skewX(-12deg);
+  transition: filter 150ms;
+}
+
+.configurator__submit span {
+  display: inline-block;
+  transform: skewX(12deg);
+}
+
+.configurator__submit:hover {
+  filter: brightness(1.08);
+}
+
+.configurator__submit:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}
+
+.configurator__error {
+  color: #ff8a80;
+}
+
+.configurator__result {
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+
+.configurator__result-label {
+  color: var(--accent-text);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+
+.configurator__lap-time {
+  font-family: var(--font-display);
+  font-size: clamp(4.5rem, 12vw, 8rem);
+  font-style: italic;
+  font-weight: 800;
+  line-height: 1;
+  /* Tabular digits keep the number from jumping sideways when it changes. */
+  font-variant-numeric: tabular-nums;
+}
+
+.configurator__lap-time--empty {
+  color: rgb(255 255 255 / 0.15);
+}
+
+.configurator__speeds {
+  margin-top: 8px;
+  color: var(--text-muted);
+}

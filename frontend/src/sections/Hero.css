@@ -1,0 +1,32 @@
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100svh;
+  padding: var(--topbar-height) var(--gutter) 0;
+  background: var(--bg);
+  color: var(--text);
+  text-align: center;
+}
+
+.hero__eyebrow {
+  color: var(--accent-text);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+.hero__title {
+  margin: 12px 0 16px;
+  font-size: clamp(5rem, 18vw, 13rem);
+  font-style: italic;
+  font-weight: 800;
+  line-height: 0.9;
+}
+
+.hero__subtitle {
+  color: var(--text-muted);
+  font-size: clamp(1.125rem, 2.5vw, 1.375rem);
+}

@@ -1,0 +1,33 @@
+.section-header {
+  max-width: 760px;
+  margin-bottom: clamp(40px, 6vw, 72px);
+}
+
+.section-header__eyebrow {
+  margin-bottom: 16px;
+  color: var(--accent-text);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+
+.section-header__title {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+.section-header__title em {
+  padding: 0 0.15em;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-style: italic;
+  /* Each wrapped line keeps its own coloured box and padding. */
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.section-header__lede {
+  margin-top: 20px;
+  color: var(--text-muted);
+  font-size: 1.0625rem;
+}

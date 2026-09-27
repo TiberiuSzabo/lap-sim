@@ -1,0 +1,133 @@
+:root {
+  --black: #0e0e10;
+  --white: #ffffff;
+  --light: #f2f2f2;
+  --red: #d5001c;
+  /* The deep red is only 3.6:1 on black, too faint for small text there; this one is 6.4:1. */
+  --red-bright: #ff5a6a;
+
+  /* Components only use these semantic names; .dark swaps their values. */
+  --bg: var(--light);
+  --text: var(--black);
+  --text-muted: #4d4d4d;
+  /* Red fills (buttons, selected pills, highlights) carry white text: 5.5:1. */
+  --accent: var(--red);
+  --on-accent: var(--white);
+  --accent-text: var(--red);
+  --line: rgb(14 14 16 / 0.14);
+
+  --font-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  --font-body: 'Barlow', system-ui, sans-serif;
+  --gutter: clamp(16px, 5vw, 64px);
+  --max-width: 1200px;
+  --notice-height: 28px;
+  --bar-height: 64px;
+  --topbar-height: calc(var(--notice-height) + var(--bar-height));
+}
+
+.dark {
+  --bg: var(--black);
+  --text: var(--white);
+  --text-muted: #a3a3a3;
+  --accent-text: var(--red-bright);
+  --line: rgb(255 255 255 / 0.14);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+p {
+  margin: 0;
+}
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+/* --accent-text, not --accent: the deep red ring would be too faint on the black sections. */
+:focus-visible {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 3px;
+}
+
+.section {
+  padding: clamp(72px, 10vw, 136px) var(--gutter);
+  background: var(--bg);
+  color: var(--text);
+  /* Anchor links would otherwise land with the heading hidden under the fixed top bar. */
+  scroll-margin-top: var(--topbar-height);
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+/* Red and white blocks, like the kerbs on the edge of a race track. */
+.kerb {
+  height: 10px;
+  background: repeating-linear-gradient(90deg, var(--red) 0 32px, var(--white) 32px 64px);
+}
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 16px;
+  z-index: 100;
+  padding: 8px 16px;
+  background: var(--red);
+  color: var(--white);
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  top: 16px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    /* Without this an infinite animation would restart every 0.01 ms and flicker. */
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

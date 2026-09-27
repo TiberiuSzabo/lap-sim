@@ -1,0 +1,77 @@
+.topbar {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 10;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.topbar__notice {
+  height: var(--notice-height);
+  overflow: hidden;
+  padding: 0 16px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-size: 0.75rem;
+  line-height: var(--notice-height);
+  text-align: center;
+  /* One line always: the page layout relies on the header having a fixed height. */
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.topbar__notice strong {
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.topbar__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: var(--bar-height);
+  padding: 0 var(--gutter);
+}
+
+.topbar__wordmark {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-style: italic;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.topbar__links {
+  display: flex;
+  gap: clamp(12px, 3vw, 32px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.topbar__links a {
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.topbar__links a:hover {
+  color: var(--accent-text);
+}
+
+@media (max-width: 480px) {
+  .topbar__wordmark {
+    font-size: 1.5rem;
+  }
+
+  .topbar__links a {
+    font-size: 0.8125rem;
+    letter-spacing: 0;
+  }
+}
