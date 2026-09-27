@@ -5,6 +5,7 @@ import { SectionHeader } from '../components/SectionHeader'
 import { TireBadge } from '../components/TireBadge'
 import { WeatherPreview } from '../components/WeatherPreview'
 import { formatLapTime } from '../format'
+import { useAnimatedNumber } from '../hooks/useAnimatedNumber'
 import { CONDITION_LABELS, TIRE_LABELS } from '../labels'
 import './Configurator.css'
 
@@ -32,6 +33,7 @@ export function Configurator({ cars, onRunCreated }: Props) {
   // Derived, not stored: until the user picks a car, the first one from the API is selected.
   const carId = selectedCarId ?? cars[0]?.id
   const car = cars.find((c) => c.id === carId)
+  const shownLapTime = useAnimatedNumber(result?.lap_time_s ?? 0)
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
@@ -52,14 +54,20 @@ export function Configurator({ cars, onRunCreated }: Props) {
   return (
     <section id="configurator" className="section dark" aria-labelledby="configurator-title">
       <div className="container">
-        <SectionHeader id="configurator-title" eyebrow="Configurator" title="Alege." accent="Apoi simulează.">
+        <SectionHeader
+          id="configurator-title"
+          eyebrow="Configurator"
+          title="Alege."
+          accent="Apoi simulează."
+        >
           Mașina, cauciucurile și vremea. Fizica face restul.
         </SectionHeader>
 
         <div className="configurator">
           <div>
-            {car && <WeatherPreview car={car} condition={condition} />}
-            <TireBadge tire={tire} />
+            {/* A new key remounts the component, which replays its fade-in animation. */}
+            {car && <WeatherPreview key={car.id} car={car} condition={condition} />}
+            <TireBadge key={tire} tire={tire} />
           </div>
 
           <form className="configurator__controls" onSubmit={handleSubmit}>
@@ -70,7 +78,13 @@ export function Configurator({ cars, onRunCreated }: Props) {
               value={carId ?? ''}
               onChange={setSelectedCarId}
             />
-            <PillGroup legend="Cauciucuri" name="tire" options={TIRES} value={tire} onChange={setTire} />
+            <PillGroup
+              legend="Cauciucuri"
+              name="tire"
+              options={TIRES}
+              value={tire}
+              onChange={setTire}
+            />
             <PillGroup
               legend="Condiția pistei"
               name="condition"
@@ -93,7 +107,14 @@ export function Configurator({ cars, onRunCreated }: Props) {
             <div className="configurator__result" aria-live="polite">
               <p className="configurator__result-label">Timp pe tur</p>
               {result ? (
-                <p className="configurator__lap-time">{formatLapTime(result.lap_time_s)}</p>
+                <>
+                  {/* The counting digits are hidden from screen readers, which would otherwise read
+                      every intermediate value; they get the final time once, from the sr-only text. */}
+                  <p className="configurator__lap-time" aria-hidden="true">
+                    {formatLapTime(shownLapTime)}
+                  </p>
+                  <p className="sr-only">{formatLapTime(result.lap_time_s)}</p>
+                </>
               ) : (
                 <p className="configurator__lap-time configurator__lap-time--empty">0:00.000</p>
               )}

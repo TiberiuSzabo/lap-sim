@@ -1,18 +1,63 @@
+/* The section is 3 screens tall; its inner box sticks to the screen while the page scrolls through
+   those 3 screens, and that scroll distance drives the video. */
 .hero {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100svh;
+  --progress: 0;
+  --title-in: 0;
+  height: 300vh;
+  background: var(--black);
+}
+
+/* Reduced motion: one screen, final frame, title already visible. */
+.hero--static {
+  --title-in: 1;
+  height: auto;
+}
+
+.hero__sticky {
+  position: sticky;
+  top: 0;
+  display: grid;
+  place-items: center;
+  height: 100svh;
+  overflow: hidden;
+}
+
+/* Media, veil and title share one grid cell, stacked on top of each other. */
+.hero__media,
+.hero__veil,
+.hero__content {
+  grid-area: 1 / 1;
+}
+
+.hero__media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero__veil {
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at center,
+    rgb(255 255 255 / 0.92) 0 35%,
+    rgb(255 255 255 / 0.5) 70%,
+    rgb(255 255 255 / 0.2)
+  );
+  opacity: var(--title-in);
+}
+
+.hero__content {
   padding: var(--topbar-height) var(--gutter) 0;
-  background: var(--bg);
-  color: var(--text);
+  color: var(--black);
   text-align: center;
+  opacity: var(--title-in);
+  transform: scale(calc(0.92 + 0.08 * var(--title-in)));
 }
 
 .hero__eyebrow {
-  color: var(--accent-text);
-  font-size: 0.75rem;
+  color: var(--red);
+  font-size: 0.8125rem;
   font-weight: 600;
   letter-spacing: 0.3em;
   text-transform: uppercase;
@@ -27,6 +72,26 @@
 }
 
 .hero__subtitle {
-  color: var(--text-muted);
+  color: #333;
   font-size: clamp(1.125rem, 2.5vw, 1.375rem);
+  font-weight: 500;
+}
+
+/* Visible at the very top only; gone after the first 10% of the scroll (negative opacity = 0). */
+.hero__hint {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  translate: -50% 0;
+  color: var(--white);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-shadow: 0 1px 8px rgb(0 0 0 / 0.6);
+  text-transform: uppercase;
+  opacity: calc(1 - var(--progress) * 10);
+}
+
+.hero--static .hero__hint {
+  display: none;
 }

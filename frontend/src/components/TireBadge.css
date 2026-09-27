@@ -6,6 +6,7 @@
 }
 
 .tire-badge__drawing {
+  animation: fade-in 400ms ease;
   flex: none;
   width: 120px;
   height: auto;

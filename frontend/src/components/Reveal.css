@@ -1,0 +1,36 @@
+/* "reveal-list" animates the <li>s of the list it wraps (div > ul > li), one after another. */
+.reveal,
+.reveal-list > * > li {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 600ms ease,
+    transform 600ms ease;
+}
+
+.reveal.is-visible,
+.reveal-list.is-visible > * > li {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal-list > * > li:nth-child(2) {
+  transition-delay: 120ms;
+}
+
+.reveal-list > * > li:nth-child(3) {
+  transition-delay: 240ms;
+}
+
+.reveal-list > * > li:nth-child(4) {
+  transition-delay: 360ms;
+}
+
+/* Printed pages never scroll, so nothing would ever reveal. */
+@media print {
+  .reveal,
+  .reveal-list > * > li {
+    opacity: 1;
+    transform: none;
+  }
+}

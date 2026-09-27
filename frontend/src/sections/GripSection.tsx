@@ -1,3 +1,4 @@
+import { Reveal } from '../components/Reveal'
 import { SectionHeader } from '../components/SectionHeader'
 import './GripSection.css'
 
@@ -25,22 +26,29 @@ export function GripSection() {
   return (
     <section id="aderenta" className="section" aria-labelledby="aderenta-title">
       <div className="container">
-        <SectionHeader id="aderenta-title" eyebrow="Fizica" title="De ce contează" accent="aderența.">
+        <SectionHeader
+          id="aderenta-title"
+          eyebrow="Fizica"
+          title="De ce contează"
+          accent="aderența."
+        >
           Modelul tratează mașina ca un punct pe traseu. Patru lucruri decid cât de repede ajunge la
           linia de sosire.
         </SectionHeader>
 
-        <ol className="pillars">
-          {PILLARS.map((pillar, index) => (
-            <li key={pillar.title} className="pillar">
-              <span className="pillar__number" aria-hidden="true">
-                {String(index + 1).padStart(2, '0')}
-              </span>
-              <h3 className="pillar__title">{pillar.title}</h3>
-              <p className="pillar__text">{pillar.text}</p>
-            </li>
-          ))}
-        </ol>
+        <Reveal stagger>
+          <ol className="pillars">
+            {PILLARS.map((pillar, index) => (
+              <li key={pillar.title} className="pillar">
+                <span className="pillar__number" aria-hidden="true">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                <h3 className="pillar__title">{pillar.title}</h3>
+                <p className="pillar__text">{pillar.text}</p>
+              </li>
+            ))}
+          </ol>
+        </Reveal>
       </div>
     </section>
   )

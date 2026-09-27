@@ -2,6 +2,7 @@
   display: grid;
   margin: 0;
   overflow: hidden;
+  animation: fade-in 500ms ease;
 }
 
 /* Every photo sits in the same grid cell, on top of each other. */
