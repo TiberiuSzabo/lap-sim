@@ -97,3 +97,27 @@ def test_run_history_starts_empty(client):
 
 def test_unknown_run_returns_404(client):
     assert client.get("/api/runs/does-not-exist").status_code == 404
+
+
+def test_cors_allows_the_vite_dev_server(client):
+    response = client.get("/api/cars", headers={"Origin": "http://localhost:5173"})
+
+    assert response.headers["access-control-allow-origin"] == "http://localhost:5173"
+
+
+def test_cors_does_not_allow_other_sites(client):
+    response = client.get("/api/cars", headers={"Origin": "https://evil.example"})
+
+    assert "access-control-allow-origin" not in response.headers
+
+
+def test_cors_preflight_allows_json_post(client):
+    # Before a JSON POST, the browser first asks with OPTIONS whether it is allowed.
+    response = client.options("/api/simulate", headers={
+        "Origin": "http://localhost:5173",
+        "Access-Control-Request-Method": "POST",
+        "Access-Control-Request-Headers": "content-type",
+    })
+
+    assert response.status_code == 200
+    assert "POST" in response.headers["access-control-allow-methods"]

@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 from typing import Annotated
 
 from fastapi import Depends, FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 
 from .data import CARS, TRACKS
 from .physics import simulate_lap
@@ -11,6 +12,15 @@ from .repository import InMemoryRunRepository, MongoRunRepository, RunRepository
 from .schemas import CarOut, RunOut, RunSummary, SimulateRequest, TrackOut
 
 app = FastAPI(title="Lap Sim API")
+
+# The React dev server (Vite) runs on another port, so the browser only lets it call us
+# if we list its origin here.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=os.environ.get("CORS_ORIGINS", "http://localhost:5173").split(","),
+    allow_methods=["GET", "POST"],
+    allow_headers=["Content-Type"],
+)
 
 
 def create_repository() -> RunRepository:
