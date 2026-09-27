@@ -1,28 +1,25 @@
 import type { Tire } from '../api'
+import { TIRE_LABELS } from '../labels'
 import './TireBadge.css'
 
 // Band colours follow the convention used in F1 (soft red, medium yellow, inter green, wet blue).
-const TIRES: Record<Tire, { name: string; color: string; grooves: 'none' | 'shallow' | 'deep'; text: string }> = {
+const TIRES: Record<Tire, { color: string; grooves: 'none' | 'shallow' | 'deep'; text: string }> = {
   soft: {
-    name: 'Soft',
     color: '#e10600',
     grooves: 'none',
     text: 'Cea mai multă aderență pe uscat. Pe ud, aproape de nefolosit.',
   },
   slick: {
-    name: 'Slick',
     color: '#f5c400',
     grooves: 'none',
     text: 'Rapid pe uscat, dar fără șanțuri nu poate evacua apa.',
   },
   intermediate: {
-    name: 'Intermediar',
     color: '#2fa84f',
     grooves: 'shallow',
     text: 'Șanțuri fine: cel mai bun compromis pe pista umedă.',
   },
   wet: {
-    name: 'Ploaie',
     color: '#1e7fd8',
     grooves: 'deep',
     text: 'Șanțuri adânci care evacuează apa. Cel mai rapid pe ud.',
@@ -37,7 +34,7 @@ type Props = {
 }
 
 export function TireBadge({ tire }: Props) {
-  const { name, color, grooves, text } = TIRES[tire]
+  const { color, grooves, text } = TIRES[tire]
   return (
     <div className="tire-badge">
       <svg className="tire-badge__drawing" viewBox="0 0 170 120" aria-hidden="true">
@@ -77,7 +74,7 @@ export function TireBadge({ tire }: Props) {
       <div>
         <p className="tire-badge__name">
           <span className="tire-badge__dot" style={{ background: color }} aria-hidden="true" />
-          {name}
+          {TIRE_LABELS[tire]}
         </p>
         <p className="tire-badge__text">{text}</p>
       </div>

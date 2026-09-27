@@ -5,29 +5,23 @@ import { SectionHeader } from '../components/SectionHeader'
 import { TireBadge } from '../components/TireBadge'
 import { WeatherPreview } from '../components/WeatherPreview'
 import { formatLapTime } from '../format'
+import { CONDITION_LABELS, TIRE_LABELS } from '../labels'
 import './Configurator.css'
 
 // Only one track exists, so a track picker would be noise.
 const TRACK_ID = 'test-ring'
 
-const TIRES: { value: Tire; label: string }[] = [
-  { value: 'soft', label: 'Soft' },
-  { value: 'slick', label: 'Slick' },
-  { value: 'intermediate', label: 'Intermediar' },
-  { value: 'wet', label: 'Ploaie' },
-]
-
-const CONDITIONS: { value: Condition; label: string }[] = [
-  { value: 'dry', label: 'Uscat' },
-  { value: 'damp', label: 'Umed' },
-  { value: 'wet', label: 'Ud' },
-]
+const TIRE_ORDER: Tire[] = ['soft', 'slick', 'intermediate', 'wet']
+const CONDITION_ORDER: Condition[] = ['dry', 'damp', 'wet']
+const TIRES = TIRE_ORDER.map((value) => ({ value, label: TIRE_LABELS[value] }))
+const CONDITIONS = CONDITION_ORDER.map((value) => ({ value, label: CONDITION_LABELS[value] }))
 
 type Props = {
   cars: Car[]
+  onRunCreated: (run: Run) => void
 }
 
-export function Configurator({ cars }: Props) {
+export function Configurator({ cars, onRunCreated }: Props) {
   const [selectedCarId, setSelectedCarId] = useState<string | null>(null)
   const [tire, setTire] = useState<Tire>('slick')
   const [condition, setCondition] = useState<Condition>('dry')
@@ -45,7 +39,9 @@ export function Configurator({ cars }: Props) {
     setIsLoading(true)
     setError(null)
     try {
-      setResult(await simulate({ car_id: carId, track_id: TRACK_ID, tire, condition }))
+      const run = await simulate({ car_id: carId, track_id: TRACK_ID, tire, condition })
+      setResult(run)
+      onRunCreated(run)
     } catch (e) {
       setError((e as Error).message)
     } finally {

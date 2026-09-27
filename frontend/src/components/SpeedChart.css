@@ -1,0 +1,129 @@
+.speed-chart {
+  margin: 0;
+}
+
+.speed-chart__empty {
+  padding: 48px 24px;
+  border: 1px dashed var(--line);
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.speed-chart__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin: 0 0 16px;
+  padding: 0;
+  list-style: none;
+}
+
+.speed-chart__legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9375rem;
+}
+
+.speed-chart__legend-item strong {
+  font-variant-numeric: tabular-nums;
+}
+
+/* A short stroke, like the line it stands for. */
+.speed-chart__key {
+  width: 16px;
+  height: 3px;
+  border-radius: 2px;
+}
+
+.speed-chart__remove {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 1.125rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.speed-chart__remove:hover {
+  border-color: var(--accent);
+  color: var(--accent-text);
+}
+
+.speed-chart__plot {
+  height: clamp(260px, 40vw, 380px);
+}
+
+.speed-tooltip {
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--white);
+  box-shadow: 0 4px 16px rgb(0 0 0 / 0.08);
+  font-size: 0.875rem;
+}
+
+.speed-tooltip__distance {
+  margin-bottom: 4px;
+  color: var(--text-muted);
+}
+
+.speed-tooltip__row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.speed-tooltip__row strong {
+  font-variant-numeric: tabular-nums;
+}
+
+.speed-tooltip__key {
+  width: 12px;
+  height: 2px;
+}
+
+.speed-tooltip__name {
+  color: var(--text-muted);
+}
+
+.speed-chart__table {
+  margin-top: 16px;
+  font-size: 0.875rem;
+}
+
+.speed-chart__table summary {
+  color: var(--accent-text);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.speed-chart__table-scroll {
+  max-height: 320px;
+  margin-top: 12px;
+  overflow: auto;
+}
+
+.speed-chart__table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.speed-chart__table th,
+.speed-chart__table td {
+  padding: 6px 12px;
+  border-bottom: 1px solid var(--line);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.speed-chart__table thead th {
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+}

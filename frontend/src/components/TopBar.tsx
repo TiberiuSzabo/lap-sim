@@ -2,8 +2,8 @@ import './TopBar.css'
 
 const LINKS = [
   { href: '#masini', label: 'Mașinile' },
-  { href: '#aderenta', label: 'Aderența' },
   { href: '#configurator', label: 'Configurator' },
+  { href: '#rezultate', label: 'Rezultate' },
 ]
 
 export function TopBar() {

@@ -52,6 +52,14 @@ export function getCars(): Promise<Car[]> {
   return request<Car[]>('/api/cars')
 }
 
+export function getRuns(): Promise<RunSummary[]> {
+  return request<RunSummary[]>('/api/runs')
+}
+
+export function getRun(id: string): Promise<Run> {
+  return request<Run>(`/api/runs/${encodeURIComponent(id)}`)
+}
+
 export function simulate(body: SimulateRequest): Promise<Run> {
   return request<Run>('/api/simulate', {
     method: 'POST',

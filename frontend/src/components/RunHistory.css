@@ -1,0 +1,56 @@
+.run-history__message {
+  color: var(--text-muted);
+}
+
+.run-history__scroll {
+  overflow-x: auto;
+}
+
+.run-history {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+
+.run-history th,
+.run-history td {
+  padding: 12px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.run-history thead th {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* Two classes beat ".run-history th", so the numbers right-align without !important. */
+.run-history .run-history__number {
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.run-history td.run-history__number {
+  font-weight: 600;
+}
+
+.run-history__check {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.run-history__check:disabled {
+  cursor: not-allowed;
+}
+
+.run-history__hint {
+  margin-top: 12px;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
