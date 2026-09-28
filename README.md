@@ -32,6 +32,9 @@ flowchart LR
     subgraph Browser
         UI["React + TypeScript<br/>(Vite, Recharts)"]
     end
+    subgraph Frontend["Frontend container"]
+        NGX["nginx<br/>static files · /api proxy"]
+    end
     subgraph Backend["Backend container"]
         API["FastAPI<br/>schemas · routes"]
         PHY["physics.py<br/>point-mass model"]
@@ -39,7 +42,8 @@ flowchart LR
     end
     DB[("MongoDB<br/>runs")]
 
-    UI -- "JSON over HTTP" --> API
+    UI -- "HTTP" --> NGX
+    NGX -- "/api/*" --> API
     API --> PHY
     API --> REPO
     REPO --> DB
@@ -67,16 +71,18 @@ condition, which the tests check.
 
 ## Run it
 
-Requirements: Docker Desktop and Node.js 20+.
+With Docker only (no Python or Node needed):
 
 ```bash
-# Backend + MongoDB
-docker compose up --build          # API on http://localhost:8000, docs on /docs
+docker compose up --build          # site on http://localhost:3000, API docs on http://localhost:8000/docs
+```
 
-# Front end, in a second terminal
+For development with hot reload, run the front end with Vite instead (Node.js 20+):
+
+```bash
 cd frontend
 npm install
-npm run dev                        # http://localhost:5173
+npm run dev                        # http://localhost:5173, talks to the API on port 8000
 ```
 
 Without Docker, the backend also runs on its own, with runs kept in memory:
@@ -100,7 +106,7 @@ npm test                           # Vitest
 ```
 
 CI (`.github/workflows/ci.yml`) runs three jobs on every push: backend tests with a MongoDB
-service container, front-end lint + tests + build, and the backend Docker image build.
+service container, front-end lint + tests + build, and a build of both Docker images.
 
 ## API
 
@@ -130,7 +136,9 @@ frontend/src/
   sections/             page sections (hero, cars, configurator, results)
   components/           reusable pieces (chart, history table, pills, reveal)
   comparison.ts         which runs are on the chart and their colours
-docker-compose.yml      MongoDB + backend
+frontend/Dockerfile     multi-stage: Node builds the site, nginx serves it
+frontend/nginx.conf     static files + /api proxy to the backend
+docker-compose.yml      MongoDB + backend + frontend
 .github/workflows/      CI
 ```
 

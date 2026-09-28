@@ -54,8 +54,9 @@ jobs:
 
   docker:
     runs-on: ubuntu-latest
-    # Only worth building the image if the code in it passes its tests.
-    needs: backend
+    # Only worth building the images if the code in them passes its tests.
+    needs: [backend, frontend]
     steps:
       - uses: actions/checkout@v7
-      - run: docker build --tag lap-sim-backend backend
+      # Builds every image in docker-compose.yml (backend and frontend).
+      - run: docker compose build
