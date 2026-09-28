@@ -1,0 +1,2 @@
+# Shell scripts run on Linux; Windows line endings (CRLF) would break them there.
+*.sh text eol=lf
