@@ -73,8 +73,10 @@ jobs:
       - name: Deploy over SSH
         env:
           SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
-          KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
           HOST: ${{ secrets.DEPLOY_HOST }}
+          # The server's public host key (not a secret). If the VM is recreated, update it with:
+          # ssh-keyscan -t ed25519 <ip>
+          KNOWN_HOSTS: 74.248.96.133 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINmkCwjHSQsyRKj4alOnK8dGChn3uP/jDOZkFAred7dU
         run: |
           mkdir -p ~/.ssh
           # Secrets pasted on Windows can carry "\r" line endings, which ssh cannot read.
