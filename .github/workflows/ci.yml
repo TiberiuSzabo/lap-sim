@@ -77,13 +77,17 @@ jobs:
           HOST: ${{ secrets.DEPLOY_HOST }}
         run: |
           mkdir -p ~/.ssh
-          echo "$SSH_KEY" > ~/.ssh/deploy_key
+          # Secrets pasted on Windows can carry "\r" line endings, which ssh cannot read.
+          printf '%s\n' "$SSH_KEY" | tr -d '\r' > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
+          # Fails here with a clear message if the key was pasted incompletely.
+          ssh-keygen -l -f ~/.ssh/deploy_key
           # The server's fingerprint is pinned, so the job cannot be tricked into
           # talking to a different machine.
-          echo "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+          printf '%s\n' "$KNOWN_HOSTS" | tr -d '\r' > ~/.ssh/known_hosts
           # No command here: the server only lets this key run the deploy (forced command).
-          ssh -i ~/.ssh/deploy_key "azureuser@$HOST"
+          # BatchMode: fail instead of waiting for a password prompt nobody can answer.
+          ssh -o BatchMode=yes -i ~/.ssh/deploy_key "azureuser@$HOST"
 
       - name: Check the site answers
         env:
