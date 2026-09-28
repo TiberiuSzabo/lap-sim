@@ -66,16 +66,31 @@ export function Hero() {
     readScroll()
     shown = target
     render(shown)
-    const onMetadata = () => render(shown)
+    const onVideoReady = () => render(shown)
+
+    // Phones (iOS Safari for sure) do not load a video's frames until it has been played once,
+    // so seeking only ever shows the poster. The video is muted and inline, which lets play()
+    // run without a tap: play, pause at once, then seek to the scroll position.
+    videoElement
+      .play()
+      .then(() => {
+        videoElement.pause()
+        render(shown)
+      })
+      .catch(() => {
+        // Blocked (e.g. low-power mode): the poster stays, the page still works.
+      })
 
     window.addEventListener('scroll', onScroll, { passive: true })
     window.addEventListener('resize', onScroll)
-    // The duration is unknown until the metadata arrives; seek again once it does.
-    videoElement.addEventListener('loadedmetadata', onMetadata)
+    // The duration and the first frames arrive later; seek again once they do.
+    videoElement.addEventListener('loadedmetadata', onVideoReady)
+    videoElement.addEventListener('loadeddata', onVideoReady)
     return () => {
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onScroll)
-      videoElement.removeEventListener('loadedmetadata', onMetadata)
+      videoElement.removeEventListener('loadedmetadata', onVideoReady)
+      videoElement.removeEventListener('loadeddata', onVideoReady)
       cancelAnimationFrame(frame)
     }
   }, [isStatic])

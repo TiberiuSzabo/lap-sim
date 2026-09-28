@@ -148,5 +148,6 @@ docker-compose.yml      MongoDB + backend + frontend
   plus a battery model for the Taycan, would be the next physics steps.
 - Car data is approximate and the model is not validated against real lap times.
 - The track is a list of segments, not real geometry.
-- Not deployed. The backend image and environment-based config are ready for a container host
-  (e.g. Azure Container Apps) with MongoDB Atlas, and the front end for a static host.
+- The demo runs on a single Azure VM with the same `docker compose` setup (only port 80 is public).
+  It is plain HTTP and deployed by hand; next steps would be HTTPS, deployment from GitHub
+  Actions, and managed services (Azure Container Apps, a hosted MongoDB).

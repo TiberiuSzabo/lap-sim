@@ -1,11 +1,14 @@
 services:
   mongo:
     image: mongo:7
+    # Start again after a crash or a server reboot, unless stopped by hand.
+    restart: unless-stopped
     volumes:
       - mongo-data:/data/db
 
   backend:
     build: ./backend
+    restart: unless-stopped
     ports:
       - "8000:8000"
     environment:
@@ -15,6 +18,7 @@ services:
 
   frontend:
     build: ./frontend
+    restart: unless-stopped
     ports:
       # 3000 on a laptop; on the server set WEB_PORT=80 so the site opens without a port.
       - "${WEB_PORT:-3000}:80"
