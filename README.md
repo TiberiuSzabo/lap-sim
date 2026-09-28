@@ -105,8 +105,10 @@ cd frontend
 npm test                           # Vitest
 ```
 
-CI (`.github/workflows/ci.yml`) runs three jobs on every push: backend tests with a MongoDB
-service container, front-end lint + tests + build, and a build of both Docker images.
+CI/CD (`.github/workflows/ci.yml`) runs on every push: backend tests with a MongoDB service
+container and front-end lint + tests + build in parallel, then a build of both Docker images.
+On `main` it then deploys over SSH to an Azure VM and checks that the site answers. The deploy
+key can only run the deploy (an SSH forced command), and the server's host key is pinned.
 
 ## API
 
@@ -148,6 +150,6 @@ docker-compose.yml      MongoDB + backend + frontend
   plus a battery model for the Taycan, would be the next physics steps.
 - Car data is approximate and the model is not validated against real lap times.
 - The track is a list of segments, not real geometry.
-- The demo runs on a single Azure VM with the same `docker compose` setup (only port 80 is public).
-  It is plain HTTP and deployed by hand; next steps would be HTTPS, deployment from GitHub
-  Actions, and managed services (Azure Container Apps, a hosted MongoDB).
+- The demo runs on a single Azure VM with the same `docker compose` setup (only port 80 is public),
+  deployed automatically from GitHub Actions. Next steps: HTTPS, building the images once in CI
+  and pulling them from a registry, and managed services (Azure Container Apps, a hosted MongoDB).
