@@ -1,8 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { getCars, getRun, simulate } from './api'
 
-// Replaces the browser's fetch with a fake that returns `body` with the given status,
-// so the client is tested without a running backend.
 function mockFetch(body: unknown, status = 200) {
   const fetchMock = vi
     .fn()

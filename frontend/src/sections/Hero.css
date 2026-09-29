@@ -1,5 +1,3 @@
-/* The section is 3 screens tall; its inner box sticks to the screen while the page scrolls through
-   those 3 screens, and that scroll distance drives the video. */
 .hero {
   --progress: 0;
   --title-in: 0;

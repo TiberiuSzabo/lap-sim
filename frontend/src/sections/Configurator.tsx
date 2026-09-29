@@ -103,7 +103,6 @@ export function Configurator({ cars, onRunCreated }: Props) {
               </p>
             )}
 
-            {/* aria-live: screen readers announce the new lap time when it appears. */}
             <div className="configurator__result" aria-live="polite">
               <p className="configurator__result-label">Timp pe tur</p>
               {result ? (

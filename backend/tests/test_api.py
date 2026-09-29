@@ -112,7 +112,6 @@ def test_cors_does_not_allow_other_sites(client):
 
 
 def test_cors_preflight_allows_json_post(client):
-    # Before a JSON POST, the browser first asks with OPTIONS whether it is allowed.
     response = client.options("/api/simulate", headers={
         "Origin": "http://localhost:5173",
         "Access-Control-Request-Method": "POST",

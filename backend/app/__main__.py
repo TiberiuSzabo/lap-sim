@@ -1,4 +1,3 @@
-"""Quick check from the terminal: python -m app"""
 from .data import CARS, TRACKS
 from .models import Condition, Tire
 from .physics import simulate_lap

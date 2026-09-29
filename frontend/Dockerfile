@@ -1,4 +1,3 @@
-# Stage 1: build the static site with Node.
 FROM node:24-alpine AS build
 WORKDIR /app
 

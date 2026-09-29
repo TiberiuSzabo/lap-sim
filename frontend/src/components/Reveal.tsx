@@ -4,7 +4,6 @@ import './Reveal.css'
 
 type Props = {
   children: ReactNode
-  // Animate the list items inside one after another instead of the whole block at once.
   stagger?: boolean
 }
 
